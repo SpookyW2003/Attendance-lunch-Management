@@ -133,3 +133,4 @@ local.properties
 /attendance_flutter_app/ios/.generated/
 /attendance_flutter_app/ios/Flutter/Generated.xcconfig
 /attendance_flutter_app/ios/Runner/GeneratedPluginRegistrant.*
+node_modules
