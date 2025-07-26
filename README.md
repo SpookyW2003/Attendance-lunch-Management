@@ -11,7 +11,7 @@ A comprehensive **full-stack attendance and lunch management system** with **web
 ## 📱 Download Mobile App
 
 ### Android APK
-🔗 **[Download Latest APK](https://github.com/spookyw2003/attendance-lunch-management/releases/latest/download/app-release.apk)**
+🔗 **[Download Latest APK](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest/download/app-release.apk)**
 
 *📝 Note: Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub repository details*
 
