@@ -1,0 +1,149 @@
+.sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #343a40;
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-open {
+  left: 0;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    left: 0;
+  }
+  
+  .sidebar-overlay {
+    display: none;
+  }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #495057;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.sidebar-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .sidebar-close {
+    display: none;
+  }
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-item {
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  color: #adb5bd;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #495057;
+  color: white;
+}
+
+.sidebar-link-active {
+  background-color: #007bff;
+  color: white;
+}
+
+.sidebar-icon {
+  font-size: 1.1rem;
+  width: 20px;
+}
+
+.sidebar-label {
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid #495057;
+}
+
+.user-info-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar-sidebar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #495057;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.user-details-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name-sidebar {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.user-role-sidebar {
+  font-size: 0.8rem;
+  color: #adb5bd;
+  text-transform: capitalize;
+}

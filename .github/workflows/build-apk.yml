@@ -1,0 +1,66 @@
+name: Build and Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.32.8'
+        channel: 'stable'
+    
+    - name: Get dependencies
+      run: |
+        cd attendance_flutter_app
+        flutter pub get
+    
+    - name: Build APK
+      run: |
+        cd attendance_flutter_app
+        flutter build apk --release
+    
+    - name: Upload APK to Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          attendance_flutter_app/build/app/outputs/flutter-apk/app-release.apk
+        name: Attendance & Lunch Management v${{ github.ref_name }}
+        body: |
+          ## 📱 Attendance & Lunch Management System
+          
+          ### Download APK:
+          - **Android**: Download the `app-release.apk` file below
+          
+          ### Demo Credentials:
+          - **Admin**: admin@demo.com / password123
+          - **Employee**: employee@demo.com / password123  
+          - **Chef**: chef@demo.com / password123
+          
+          ### Features:
+          - ✅ Role-based authentication
+          - ✅ Attendance tracking
+          - ✅ Lunch management
+          - ✅ Material Design UI
+          - ✅ Offline capability
+          
+          ### Backend Setup:
+          Make sure to set up the backend server as described in the main README.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
