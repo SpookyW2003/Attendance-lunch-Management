@@ -1,50 +1,110 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../config/api_config.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://192.168.1.8:5000/api';
+  static String? _workingEndpoint;
+  
+  // Get the working endpoint or find one
+  static Future<String> _getWorkingEndpoint() async {
+    if (_workingEndpoint != null) {
+      return _workingEndpoint!;
+    }
+    
+    // Try to find a working endpoint
+    for (String endpoint in ApiConfig.possibleEndpoints) {
+      try {
+        final response = await http.get(
+          Uri.parse('$endpoint/health'),
+          headers: {'Content-Type': 'application/json'},
+        ).timeout(const Duration(seconds: 5));
+        
+        if (response.statusCode == 200) {
+          _workingEndpoint = endpoint;
+          
+          // Save working endpoint for future use
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('working_endpoint', endpoint);
+          
+          return endpoint;
+        }
+      } catch (e) {
+        // Continue to next endpoint
+        continue;
+      }
+    }
+    
+    // If no endpoint works, try to load previously saved one
+    final prefs = await SharedPreferences.getInstance();
+    final savedEndpoint = prefs.getString('working_endpoint');
+    if (savedEndpoint != null) {
+      _workingEndpoint = savedEndpoint;
+      return savedEndpoint;
+    }
+    
+    // Fall back to default
+    return ApiConfig.defaultEndpoint;
+  }
   
   static Future<Map<String, dynamic>?> login(String email, String password) async {
-    try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/auth/login'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          'email': email,
-          'password': password,
-        }),
-      );
+    Exception? lastError;
+    
+    // Try multiple times with different endpoints
+    for (int attempt = 0; attempt < ApiConfig.maxRetries; attempt++) {
+      try {
+        final baseUrl = await _getWorkingEndpoint();
+        
+        final response = await http.post(
+          Uri.parse('$baseUrl/auth/login'),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({
+            'email': email,
+            'password': password,
+          }),
+        ).timeout(ApiConfig.connectionTimeout);
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          
+          // Save token to shared preferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('auth_token', data['token']);
+          await prefs.setString('user_data', json.encode(data['user']));
+          
+          return data;
+        } else {
+          final error = json.decode(response.body);
+          throw Exception(error['message'] ?? 'Login failed');
+        }
+      } catch (e) {
+        lastError = Exception('Network error: $e');
         
-        // Save token to shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('auth_token', data['token']);
-        await prefs.setString('user_data', json.encode(data['user']));
+        // If this endpoint failed, try another one next time
+        _workingEndpoint = null;
         
-        return data;
-      } else {
-        final error = json.decode(response.body);
-        throw Exception(error['message'] ?? 'Login failed');
+        // Wait before retrying
+        if (attempt < ApiConfig.maxRetries - 1) {
+          await Future.delayed(ApiConfig.retryDelay);
+        }
       }
-    } catch (e) {
-      throw Exception('Network error: $e');
     }
+    
+    throw lastError ?? Exception('Unable to connect to server after multiple attempts');
   }
 
   static Future<bool> verifyToken(String token) async {
     try {
+      final baseUrl = await _getWorkingEndpoint();
       final response = await http.get(
         Uri.parse('$baseUrl/auth/verify'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
-      );
+      ).timeout(ApiConfig.connectionTimeout);
 
       return response.statusCode == 200;
     } catch (e) {
