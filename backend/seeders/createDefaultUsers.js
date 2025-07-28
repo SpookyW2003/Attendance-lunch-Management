@@ -14,7 +14,7 @@ const defaultUsers = [
     employeeId: 'ADM001'
   },
   {
-    name: 'John Employee',
+    name: 'DDp',
     email: 'employee@demo.com', 
     password: 'password123',
     role: 'employee',
@@ -22,7 +22,7 @@ const defaultUsers = [
     employeeId: 'EMP001'
   },
   {
-    name: 'Chef Mike',
+    name: 'Chef Deba',
     email: 'chef@demo.com',
     password: 'password123', 
     role: 'chef',

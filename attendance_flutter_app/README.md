@@ -75,7 +75,7 @@ The APK will be generated at: `build/app/outputs/flutter-apk/app-release.apk`
 ## Demo Credentials
 
 - **Admin**: admin@demo.com / password123
-- **Employee**: employee@demo.com / password123
+- **Employee (DDp)**: employee@demo.com / password123
 - **Chef**: chef@demo.com / password123
 
 ## Project Structure
