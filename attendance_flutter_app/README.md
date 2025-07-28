@@ -4,16 +4,24 @@ A cross-platform mobile application built with Flutter for the Attendance and Lu
 
 ## 📱 Download APK
 
-**🔗 [Download Latest APK](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest/download/app-release.apk)**
+**🔗 [Download Latest APK](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest/download/app-release.apk)** | **📋 [View Release Notes](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest)**
 
-> **Note**: Make sure to enable "Install from Unknown Sources" in your Android device settings before installing the APK.
+### 📲 Quick Download Options:
 
-### Quick Installation Steps:
-1. Click the download link above
-2. Once downloaded, tap the APK file
-3. Allow installation from unknown sources if prompted
-4. Follow the installation wizard
-5. Launch the app and use the demo credentials below
+| Method | Link |
+|--------|------|
+| 🔗 **Direct Download** | [app-release.apk](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest/download/app-release.apk) |
+| 📱 **QR Code** | Scan with your phone: `https://qr.io/attendance-app` |
+| 📋 **Release Page** | [All Releases](https://github.com/SpookyW2003/Attendance-lunch-Management/releases) |
+
+> **📱 App Size**: ~21.7 MB | **⚠️ Requirements**: Android 5.0+ (API 21)
+
+### 🚀 Quick Installation Steps:
+1. **Download**: Click the download link above or scan QR code
+2. **Enable**: Allow "Install from Unknown Sources" in Android settings
+3. **Install**: Tap the APK file and follow installation wizard
+4. **Launch**: Open the app and use demo credentials below
+5. **Login**: Use any of the demo accounts to explore features
 
 ## Features
 
