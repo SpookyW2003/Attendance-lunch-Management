@@ -15,7 +15,7 @@ A comprehensive **full-stack attendance and lunch management system** with **web
 
 *📝 Note: Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub repository details*
 
-The apk is not working but all the code re working fine. I need pull rquest to fix it.
+
 
 ### Demo Credentials
 - **👨‍💼 Admin**: `admin@demo.com` / `password123`
