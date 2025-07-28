@@ -2,6 +2,19 @@
 
 A cross-platform mobile application built with Flutter for the Attendance and Lunch Management System.
 
+## 📱 Download APK
+
+**🔗 [Download Latest APK](https://github.com/SpookyW2003/Attendance-lunch-Management/releases/latest/download/app-release.apk)**
+
+> **Note**: Make sure to enable "Install from Unknown Sources" in your Android device settings before installing the APK.
+
+### Quick Installation Steps:
+1. Click the download link above
+2. Once downloaded, tap the APK file
+3. Allow installation from unknown sources if prompted
+4. Follow the installation wizard
+5. Launch the app and use the demo credentials below
+
 ## Features
 
 - **Authentication**: Login with role-based access (Admin, Employee, Chef)
