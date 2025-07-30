@@ -14,7 +14,7 @@ A cross-platform mobile application built with Flutter for the Attendance and Lu
 | 📱 **QR Code** | Scan with your phone: `https://qr.io/attendance-app` |
 | 📋 **Release Page** | [All Releases](https://github.com/SpookyW2003/Attendance-lunch-Management/releases) |
 
-> **📱 App Size**: ~21.7 MB | **⚠️ Requirements**: Android 5.0+ (API 21)
+> **📱 App Size**: ~46.4 MB | **⚠️ Requirements**: Android 6.0+ (API 23)
 
 ### 🚀 Quick Installation Steps:
 1. **Download**: Click the download link above or scan QR code
@@ -25,12 +25,21 @@ A cross-platform mobile application built with Flutter for the Attendance and Lu
 
 ## Features
 
+### 🚀 Core Features
 - **Authentication**: Login with role-based access (Admin, Employee, Chef)
 - **Dashboard**: Role-specific dashboards with relevant quick actions
 - **Material Design**: Modern UI following Material Design guidelines
 - **API Integration**: Connects to Node.js backend server
 - **Local Storage**: Secure token storage for persistent login
 - **Cross-Platform**: Supports Android and iOS
+
+### ⚡ Performance & Network Optimizations
+- **Smart Network Discovery**: Automatically detects and connects to the correct server IP
+- **Mock Server Mode**: Works offline with demo data when server is unavailable
+- **Fast Initialization**: Optimized app startup with efficient endpoint discovery
+- **Mobile Network Support**: Seamless connectivity across different Wi-Fi networks
+- **Robust Error Handling**: Graceful fallback mechanisms for network issues
+- **Dynamic IP Detection**: Automatically adapts to changing network configurations
 
 ## Prerequisites
 
