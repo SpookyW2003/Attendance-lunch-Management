@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/login_screen.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/splash_screen.dart';
 import 'services/auth_service.dart';
 
 void main() {
@@ -57,13 +58,25 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  bool _isLoading = true;
+  bool _isInitializing = true;
   bool _isLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
-    _checkAuthStatus();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    // Initialize AuthService first (discover working endpoint)
+    await AuthService.initialize();
+    
+    // Then check authentication status
+    await _checkAuthStatus();
+    
+    setState(() {
+      _isInitializing = false;
+    });
   }
 
   Future<void> _checkAuthStatus() async {
@@ -71,23 +84,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final token = prefs.getString('auth_token');
     
     if (token != null) {
-      // Verify token with backend
+      // Verify token with backend (this will now be fast since endpoint is already known)
       final isValid = await AuthService.verifyToken(token);
-      setState(() {
-        _isLoggedIn = isValid;
-        _isLoading = false;
-      });
+      _isLoggedIn = isValid;
     } else {
-      setState(() {
-        _isLoggedIn = false;
-        _isLoading = false;
-      });
+      _isLoggedIn = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
+    if (_isInitializing) {
       return const Scaffold(
         body: Center(
           child: Column(
